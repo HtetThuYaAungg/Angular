@@ -1,0 +1,45 @@
+<div class="row pt-5">
+  <div class="col-md-6 mx-auto">
+    <div class="card rounded-0">
+      <div class="card-header">
+        <h3 class="mb-0">Register</h3>
+      </div>
+      <div class="card-body">
+        <div class="container-fluid">
+          <form [formGroup]="regForm">
+            <div class="form-group">
+              <label>Primary Email:</label>
+              <input [(ngModel)]="registerUserData.email" [class.is-invalid]="primEmail.invalid && primEmail.touched"
+                type="email" name="email" class="form-control" formControlName="primaryEmail" required />
+
+              <div *ngIf="(primEmail.invalid && primEmail.touched) || primEmail.dirty">
+                <small *ngIf="primEmail.errors?.required" class="text-danger">Primary email is required</small>
+                <!--question mark(?) is a safe navigation operator-->
+                <small *ngIf="primEmail.errors?.pattern" class="text-danger">Please enter a valid email address</small>
+              </div>
+
+            </div>
+
+            <div class="form-group">
+              <label>Password</label>
+              <input [(ngModel)]="registerUserData.password" [class.is-invalid]="password.invalid && password.touched"
+                type="password" name="password" class="form-control" formControlName="password" required />
+
+              <div *ngIf="(password.invalid && password.touched) || password.dirty">
+                <small *ngIf="password.errors?.required" class="text-danger">Password is required</small>
+                <small *ngIf="password.errors?.minlength" class="text-danger">
+                  Password must be at least 8 characters long.
+                </small>
+
+              </div>
+
+            </div>
+
+          </form>
+          <button (click)="registerUser()" type="button" class="btn btn-primary float-right"
+            [disabled]="primEmail.errors?.pattern || primEmail.errors?.required || password.errors?.required || password.errors?.minlength">Register</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
